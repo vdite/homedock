@@ -151,6 +151,7 @@ select:focus-visible {
 .button svg,
 .text-button svg,
 .group-action svg,
+.card-action svg,
 .drag-handle svg {
   width: 19px;
   height: 19px;
@@ -560,6 +561,11 @@ h2 {
   width: 30px;
   height: 30px;
   font-size: 1rem;
+}
+
+.card-action svg {
+  width: 16px;
+  height: 16px;
 }
 
 .card-action.delete:hover,
