@@ -122,16 +122,13 @@ function createAppIcon(link) {
     return wrapper;
   }
 
+  // Anfangsbuchstabe, bis das Bild wirklich geladen ist (oder für immer, falls es fehlschlägt).
+  wrapper.textContent = link.name.slice(0, 1).toUpperCase();
   const image = document.createElement('img');
-  image.src = source;
   image.alt = '';
-  image.loading = 'lazy';
   image.referrerPolicy = 'no-referrer';
-  image.addEventListener('error', () => {
-    wrapper.replaceChildren();
-    wrapper.textContent = link.name.slice(0, 1).toUpperCase();
-  }, { once: true });
-  wrapper.append(image);
+  image.addEventListener('load', () => wrapper.replaceChildren(image), { once: true });
+  image.src = source;
   return wrapper;
 }
 
@@ -197,11 +194,9 @@ function createGroup(group, visibleLinks) {
   section.draggable = editing;
 
   const header = createElement('header', 'group-head');
-  const titleWrap = createElement('div', 'group-title-wrap');
-  const kicker = createElement('div', 'group-kicker');
-  kicker.append(createElement('span', 'group-dot'), document.createTextNode(`${group.links.length} ${group.links.length === 1 ? 'APP' : 'APPS'}`));
-  titleWrap.append(kicker, createElement('h2', '', group.name));
-  header.append(titleWrap);
+  const count = createElement('span', 'group-count', String(group.links.length));
+  count.title = `${group.links.length} ${group.links.length === 1 ? 'App' : 'Apps'}`;
+  header.append(createElement('span', 'group-dot'), createElement('h2', '', group.name), count);
 
   if (editing) {
     const tools = createElement('div', 'group-tools');
@@ -227,7 +222,7 @@ function createGroup(group, visibleLinks) {
   for (const link of visibleLinks) grid.append(createAppCard(link, group));
 
   if (!visibleLinks.length && !editing) {
-    grid.append(createElement('p', 'empty-group', 'In dieser Gruppe ist noch nichts.'));
+    grid.append(createElement('p', 'empty-group', 'Noch keine Apps. Über „Ordnen“ hinzufügen.'));
   }
 
   if (editing) {

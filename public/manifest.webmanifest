@@ -4,8 +4,8 @@
   "description": "Deine Apps, ordentlich an einem Ort.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f4ef",
-  "theme_color": "#f4f4ef",
+  "background_color": "#f6f6f4",
+  "theme_color": "#f6f6f4",
   "icons": [
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }

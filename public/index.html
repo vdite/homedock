@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f4f4ef">
+    <meta name="theme-color" content="#f6f6f4">
     <meta name="description" content="HomeDock – deine Apps, ordentlich an einem Ort.">
     <title>HomeDock</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -35,6 +35,10 @@
             <button type="button" id="importButton" role="menuitem">Konfiguration importieren</button>
           </div>
           <input id="importInput" type="file" accept="application/json,.json" hidden>
+          <button class="button button-quiet" id="addGroupButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Neue Gruppe</span>
+          </button>
           <button class="button button-secondary" id="editButton" type="button">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m4 20 4.2-.9L19 8.3a2.1 2.1 0 0 0-3-3L5.2 16 4 20Zm10.6-13.3 2.7 2.7"/></svg>
             <span>Ordnen</span>
@@ -47,32 +51,16 @@
       </header>
 
       <main>
-        <div class="page-heading">
-          <div>
-            <p class="eyebrow">DEIN STARTPUNKT</p>
-            <h1>Alles Wichtige. Ein Klick.</h1>
-          </div>
-          <button class="text-button" id="addGroupButton" type="button">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-            Neue Gruppe
-          </button>
-        </div>
-
+        <h1 class="sr-only">HomeDock</h1>
         <div id="notice" class="notice" role="alert" hidden></div>
         <section id="groups" class="groups" aria-label="App-Gruppen"></section>
 
         <section id="emptyState" class="empty-state" hidden>
-          <div class="empty-illustration" aria-hidden="true">
-            <span class="empty-card card-one"></span>
-            <span class="empty-card card-two"></span>
-            <span class="empty-plus">+</span>
-          </div>
-          <p class="eyebrow">NOCH GANZ LEER</p>
-          <h2>Baue deinen eigenen Startpunkt.</h2>
-          <p>Lege zuerst eine Gruppe an und sammle darin die Apps, die du täglich brauchst.</p>
+          <h2>Noch keine Gruppen</h2>
+          <p>Lege eine Gruppe an, z. B. „Smart Home“ oder „Medien“, und füge dann Apps hinzu.</p>
           <button class="button button-primary" id="emptyAddGroupButton" type="button">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-            Erste Gruppe anlegen
+            Gruppe anlegen
           </button>
         </section>
 
@@ -84,17 +72,13 @@
 
       <footer>
         <span id="saveStatus" aria-live="polite">Bereit</span>
-        <span>Nur Links. Kein Ballast.</span>
       </footer>
     </div>
 
     <dialog id="groupDialog" class="modal">
       <form id="groupForm" method="dialog">
         <div class="modal-head">
-          <div>
-            <p class="eyebrow">GRUPPE</p>
-            <h2 id="groupDialogTitle">Neue Gruppe</h2>
-          </div>
+          <h2 id="groupDialogTitle">Neue Gruppe</h2>
           <button class="icon-button close-dialog" type="button" aria-label="Schließen">×</button>
         </div>
         <input id="groupId" type="hidden">
@@ -116,10 +100,7 @@
     <dialog id="linkDialog" class="modal">
       <form id="linkForm" method="dialog">
         <div class="modal-head">
-          <div>
-            <p class="eyebrow">SHORTCUT</p>
-            <h2 id="linkDialogTitle">App hinzufügen</h2>
-          </div>
+          <h2 id="linkDialogTitle">App hinzufügen</h2>
           <button class="icon-button close-dialog" type="button" aria-label="Schließen">×</button>
         </div>
         <input id="linkId" type="hidden">
@@ -150,10 +131,7 @@
     <dialog id="confirmDialog" class="modal modal-small">
       <form method="dialog">
         <div class="modal-head">
-          <div>
-            <p class="eyebrow">SICHER?</p>
-            <h2 id="confirmTitle">Löschen</h2>
-          </div>
+          <h2 id="confirmTitle">Löschen</h2>
           <button class="icon-button close-dialog" type="button" aria-label="Schließen">×</button>
         </div>
         <p id="confirmText" class="confirm-text"></p>
