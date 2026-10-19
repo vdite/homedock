@@ -1,0 +1,10 @@
+{
+  "name": "HomeDock",
+  "short_name": "HomeDock",
+  "description": "Deine Apps, ordentlich an einem Ort.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f4ef",
+  "theme_color": "#f4f4ef",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f4f4ef">
+    <meta name="description" content="HomeDock – deine Apps, ordentlich an einem Ort.">
+    <title>HomeDock</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="HomeDock Startseite">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span>HomeDock</span>
+        </a>
+
+        <label class="search" for="searchInput">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.15A7.5 7.5 0 1 1 4 11.5a7.5 7.5 0 0 1 15 0Z"/></svg>
+          <input id="searchInput" type="search" placeholder="Apps durchsuchen …" autocomplete="off">
+          <kbd>/</kbd>
+        </label>
+
+        <div class="header-actions">
+          <button class="button button-quiet" id="dataButton" type="button" aria-haspopup="menu" aria-expanded="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm7 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM5 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg>
+            <span class="sr-only">Datenmenü</span>
+          </button>
+          <div class="data-menu" id="dataMenu" role="menu" hidden>
+            <button type="button" id="exportButton" role="menuitem">Konfiguration exportieren</button>
+            <button type="button" id="importButton" role="menuitem">Konfiguration importieren</button>
+          </div>
+          <input id="importInput" type="file" accept="application/json,.json" hidden>
+          <button class="button button-secondary" id="editButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m4 20 4.2-.9L19 8.3a2.1 2.1 0 0 0-3-3L5.2 16 4 20Zm10.6-13.3 2.7 2.7"/></svg>
+            <span>Ordnen</span>
+          </button>
+          <button class="button button-primary" id="addLinkButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            <span>App hinzufügen</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">DEIN STARTPUNKT</p>
+            <h1>Alles Wichtige. Ein Klick.</h1>
+          </div>
+          <button class="text-button" id="addGroupButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            Neue Gruppe
+          </button>
+        </div>
+
+        <div id="notice" class="notice" role="alert" hidden></div>
+        <section id="groups" class="groups" aria-label="App-Gruppen"></section>
+
+        <section id="emptyState" class="empty-state" hidden>
+          <div class="empty-illustration" aria-hidden="true">
+            <span class="empty-card card-one"></span>
+            <span class="empty-card card-two"></span>
+            <span class="empty-plus">+</span>
+          </div>
+          <p class="eyebrow">NOCH GANZ LEER</p>
+          <h2>Baue deinen eigenen Startpunkt.</h2>
+          <p>Lege zuerst eine Gruppe an und sammle darin die Apps, die du täglich brauchst.</p>
+          <button class="button button-primary" id="emptyAddGroupButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            Erste Gruppe anlegen
+          </button>
+        </section>
+
+        <section id="noResults" class="no-results" hidden>
+          <p>Keine App passt zu „<strong id="searchTerm"></strong>“.</p>
+          <button class="text-button" id="clearSearchButton" type="button">Suche löschen</button>
+        </section>
+      </main>
+
+      <footer>
+        <span id="saveStatus" aria-live="polite">Bereit</span>
+        <span>Nur Links. Kein Ballast.</span>
+      </footer>
+    </div>
+
+    <dialog id="groupDialog" class="modal">
+      <form id="groupForm" method="dialog">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">GRUPPE</p>
+            <h2 id="groupDialogTitle">Neue Gruppe</h2>
+          </div>
+          <button class="icon-button close-dialog" type="button" aria-label="Schließen">×</button>
+        </div>
+        <input id="groupId" type="hidden">
+        <label class="field">
+          <span>Name</span>
+          <input id="groupName" name="name" maxlength="80" placeholder="z. B. Arbeit" required autofocus>
+        </label>
+        <fieldset class="color-field">
+          <legend>Farbe</legend>
+          <div id="colorChoices" class="color-choices"></div>
+        </fieldset>
+        <div class="modal-actions">
+          <button class="button button-quiet close-dialog" type="button">Abbrechen</button>
+          <button class="button button-primary" type="submit">Speichern</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="linkDialog" class="modal">
+      <form id="linkForm" method="dialog">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">SHORTCUT</p>
+            <h2 id="linkDialogTitle">App hinzufügen</h2>
+          </div>
+          <button class="icon-button close-dialog" type="button" aria-label="Schließen">×</button>
+        </div>
+        <input id="linkId" type="hidden">
+        <label class="field">
+          <span>Name</span>
+          <input id="linkName" name="name" maxlength="100" placeholder="z. B. Nextcloud" required autofocus>
+        </label>
+        <label class="field">
+          <span>URL</span>
+          <input id="linkUrl" name="url" type="text" inputmode="url" maxlength="2048" placeholder="https://cloud.example.de" required>
+        </label>
+        <label class="field">
+          <span>Gruppe</span>
+          <select id="linkGroup" name="group" required></select>
+        </label>
+        <label class="field">
+          <span>Icon <small>optional</small></span>
+          <input id="linkIcon" name="icon" maxlength="2048" placeholder="Emoji oder Bild-URL">
+          <small>Ohne Angabe verwendet HomeDock das Website-Icon.</small>
+        </label>
+        <div class="modal-actions">
+          <button class="button button-quiet close-dialog" type="button">Abbrechen</button>
+          <button class="button button-primary" type="submit">Speichern</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="confirmDialog" class="modal modal-small">
+      <form method="dialog">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">SICHER?</p>
+            <h2 id="confirmTitle">Löschen</h2>
+          </div>
+          <button class="icon-button close-dialog" type="button" aria-label="Schließen">×</button>
+        </div>
+        <p id="confirmText" class="confirm-text"></p>
+        <div class="modal-actions">
+          <button class="button button-quiet close-dialog" type="button">Abbrechen</button>
+          <button class="button button-danger" id="confirmAction" value="confirm" type="submit">Löschen</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

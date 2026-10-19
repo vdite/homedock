@@ -1,0 +1,18 @@
+services:
+  homedock:
+    image: ghcr.io/vdite/homedock:latest
+    container_name: homedock
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    ports:
+      - "8080:8080"
+    volumes:
+      - homedock-data:/data
+
+volumes:
+  homedock-data:
