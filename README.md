@@ -2,6 +2,26 @@
 
 HomeDock ist eine kleine, selbst gehostete Startseite für App-Shortcuts. Links lassen sich in Gruppen ordnen, durchsuchen und per Drag-and-drop verschieben. Mehr macht die App bewusst nicht.
 
+![HomeDock mit gruppierten App-Shortcuts](screenshots/homedock-app-1.jpg)
+
+<details>
+<summary>Weitere Screenshots</summary>
+
+**Ordnen-Modus:** Apps und Gruppen bearbeiten, löschen und per Drag-and-drop verschieben.
+
+![Ordnen-Modus](screenshots/homedock-app-2.jpg)
+
+**App bearbeiten:**
+
+![Dialog „App bearbeiten“](screenshots/homedock-app-3.jpg)
+
+**Export und Import** der kompletten Konfiguration als JSON:
+
+![Datenmenü](screenshots/homedock-app-4.jpg)
+![Exportierte Konfiguration](screenshots/homedock-app-5.jpg)
+
+</details>
+
 ## Start mit Docker Compose
 
 ```bash
@@ -46,6 +66,8 @@ docker compose up -d
 - Das Drei-Punkte-Menü exportiert oder importiert die komplette Konfiguration als JSON.
 
 Ohne eigenes Icon versucht HomeDock, `/favicon.ico` der verlinkten Website zu laden. Alternativ kann ein Emoji oder eine direkte `http(s)`-Bild-URL eingetragen werden.
+
+Tipp: Für viele Self-Hosting-Apps gibt es fertige Logos in [dashboard-icons](https://github.com/homarr-labs/dashboard-icons), etwa `https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/jellyfin.png`.
 
 ## Konfiguration
 
