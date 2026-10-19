@@ -72,7 +72,9 @@ function makeButton(className, label, icon, handler) {
 }
 
 function newId() {
-  return crypto.randomUUID();
+  // randomUUID fehlt ohne HTTPS (z. B. http://192.168.x.x), getRandomValues nicht.
+  if (crypto.randomUUID) return crypto.randomUUID();
+  return Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) => byte.toString(16).padStart(2, '0')).join('');
 }
 
 function announce(message) {
