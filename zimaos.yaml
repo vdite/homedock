@@ -1,0 +1,53 @@
+# HomeDock – Stack für ZimaOS / CasaOS / Portainer mit Bind-Mount.
+# Daten liegen unter /DATA/AppData/homedock/dashboard.json (direkt sicherbar).
+# Anderer Host-Port: linke Zahl unter ports und port_map anpassen.
+name: homedock
+
+services:
+  # Einmalig: gibt dem Container-User (UID 1000) Schreibrechte auf den AppData-Ordner,
+  # den ZimaOS sonst als root anlegt.
+  init-perms:
+    image: alpine:3.20
+    container_name: homedock-init-perms
+    restart: "no"
+    command: ["sh", "-c", "chown -R 1000:1000 /data"]
+    volumes:
+      - /DATA/AppData/homedock:/data
+
+  homedock:
+    image: ghcr.io/vdite/homedock:latest
+    container_name: homedock
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      init-perms:
+        condition: service_completed_successfully
+    ports:
+      - "8080:8080"
+    volumes:
+      - /DATA/AppData/homedock:/data
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  main: homedock
+  author: vdite
+  category: Utilities
+  title:
+    en_us: HomeDock
+    de_de: HomeDock
+  tagline:
+    en_us: Self-hosted start page for app shortcuts
+    de_de: Selbst gehostete Startseite für App-Shortcuts
+  description:
+    en_us: Group, search and reorder links to your self-hosted apps.
+    de_de: Links zu deinen Apps in Gruppen ordnen, durchsuchen und per Drag-and-drop verschieben.
+  icon: https://raw.githubusercontent.com/vdite/homedock/main/public/icon-512.png
+  index: /
+  port_map: "8080"

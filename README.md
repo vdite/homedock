@@ -18,9 +18,17 @@ Das Image `ghcr.io/vdite/homedock` wird bei jedem Push auf `main` per GitHub Act
 docker compose pull && docker compose up -d
 ```
 
-## Portainer
+## ZimaOS, CasaOS und Portainer
 
-**Stacks → Add stack → Web editor**, den Inhalt von `compose.yaml` einfügen und deployen. Für Updates im Stack **Update the stack** mit aktiviertem **Re-pull image** ausführen.
+[`zimaos.yaml`](zimaos.yaml) speichert die Daten in einem festen Ordner statt in einem Docker-Volume:
+`/DATA/AppData/homedock/dashboard.json`. Diese Datei lässt sich direkt sichern.
+
+- **ZimaOS/CasaOS:** App Store → **Benutzerdefinierte Installation** → Import, Inhalt von `zimaos.yaml` einfügen.
+- **Portainer:** **Stacks → Add stack → Web editor**, Inhalt von `zimaos.yaml` einfügen und deployen.
+
+Der kurzlebige Container `homedock-init-perms` gibt dem Ordner beim Start die passenden Rechte (UID 1000), denn HomeDock läuft nicht als root. Danach steht er auf „Exited (0)“; das ist gewollt. Ohne ihn schlägt das Speichern mit „Interner Serverfehler“ fehl, wenn der Ordner root gehört.
+
+Für Updates in Portainer im Stack **Update the stack** mit aktiviertem **Re-pull image** ausführen.
 
 ## Selbst bauen
 
