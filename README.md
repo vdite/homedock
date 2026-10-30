@@ -2,6 +2,8 @@
 
 HomeDock ist eine kleine, selbst gehostete Startseite für App-Shortcuts. Links lassen sich in Gruppen ordnen, durchsuchen und per Drag-and-drop verschieben. Mehr macht die App bewusst nicht.
 
+Warum es HomeDock gibt und wie du es auf ZimaOS, CasaOS oder in Portainer installierst, inklusive YAML-Generator: [HomeDock: Schlankes Homelab-Dashboard als Alternative zu Homarr und Heimdall](https://mizine.de/homeserver/homedock-homelab-dashboard/) auf mizine.de.
+
 ![HomeDock mit gruppierten App-Shortcuts](screenshots/homedock-app-1.jpg)
 
 <details>
