@@ -109,3 +109,7 @@ Lokal landet die Konfiguration standardmäßig unter `./data/dashboard.json`.
 ## Sicherheitsmodell
 
 HomeDock hat absichtlich keine Benutzerverwaltung. Betreibe es nur in einem vertrauenswürdigen Heimnetz oder setze für öffentlichen Zugriff einen Reverse Proxy mit Authentifizierung davor. Die Zielseiten werden vom Server nicht abgerufen; lediglich der Browser versucht deren Favicons zu laden.
+
+## Lizenz
+
+MIT – siehe [LICENSE](LICENSE).

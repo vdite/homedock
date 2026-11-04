@@ -8,6 +8,7 @@ WORKDIR /app
 
 COPY --chown=node:node package.json server.js store.js ./
 COPY --chown=node:node public ./public
+COPY --chown=node:node LICENSE ./LICENSE
 
 RUN mkdir -p /data && chown node:node /data
 

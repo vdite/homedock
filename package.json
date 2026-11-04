@@ -2,6 +2,7 @@
   "name": "homedock",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "description": "A tiny, self-hosted start page for grouped app shortcuts.",
   "type": "module",
   "scripts": {
