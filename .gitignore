@@ -4,3 +4,6 @@ node_modules/
 npm-debug.log*
 agents_chat.md
 resumes.txt
+
+# Claude Code local settings
+.claude/settings.local.json
